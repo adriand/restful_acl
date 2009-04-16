@@ -10,7 +10,7 @@ module RestfulAclController
     def has_permission?
       return true if administrator?
 
-      begin
+      begin        
         # Load the Model based on the controller name
         klass = self.controller_name.classify.constantize
 
@@ -73,11 +73,15 @@ module RestfulAclController
       def get_parent_from_request_uri(child_klass)
         parent_klass = child_klass.mom.to_s
         bits         = request.request_uri.split('/')
-        parent_id    = bits.at(bits.index(parent_klass.pluralize) + 1)
-
-        parent_klass.classify.constantize.find(parent_id)
+        p_index      = bits.index(parent_klass.pluralize)
+        if p_index
+          parent_id = bits.at(p_index + 1)
+          parent_klass.classify.constantize.find(parent_id)
+        else
+          nil
+        end
       end
-
+      
       def administrator?
         current_user.respond_to?("is_admin?") && current_user.is_admin?
       end
