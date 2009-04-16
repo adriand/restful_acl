@@ -1,16 +1,21 @@
 module RestfulAclHelper
-  def indexable
+  # Adrian: sometimes, we want links to create a resource in a view that belongs to a different controller than the resource's
+  # controller.  E.g. on a company page, I may want a link to create a new user at that company, in which case I can now use
+  # if creatable(User), or if indexable(User)  
+  
+  def indexable(specified_klass = nil)
     return true if admin_enabled
-    klass.is_indexable_by(current_user, parent_obj)
+    (specified_klass || klass).is_indexable_by(current_user, parent_obj)
   end
 
-  def creatable
+  
+  def creatable(specified_klass = nil)
     return true if admin_enabled
-    klass.is_creatable_by(current_user, parent_obj)
+    (specified_klass || klass).is_creatable_by(current_user, parent_obj)
   end
   alias_method :createable, :creatable
-
-
+  
+  
   def updatable(object)
     return true if admin_enabled
 
