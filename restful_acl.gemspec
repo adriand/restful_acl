@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
-  s.name     = "restful_acl"
-  s.version  = "0.0.1"
+  s.name     = "adriand-restful_acl"
+  s.version  = "2.0.7"
   s.date     = "2009-04-16"
   s.summary  = "Object-level access control"
   s.email    = "adrianduyzer@gmail.com"
