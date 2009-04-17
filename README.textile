@@ -2,6 +2,43 @@ h2. RESTful_ACL
 
 A Ruby on Rails plugin that provides fine grained access control through the MVC stack to RESTful resources in a Ruby on Rails 2.0+ application. Authorization is as simple as true or false.
 
+This is a fork of "mdarby's version":http://github.com/mdarby/restful_acl/tree/master
+
+h3. Differences From mdarby's version
+
+h4. Handling Resources Accessible As Nested And As Unnested
+
+It handles cases where a logical parent id may not exist in the URL for a resource that is sometimes accessed via a nested route, and sometimes not.
+
+Suppose you provide a nested and an unnested way to access a resource:
+
+<pre>
+map.resources :providers do |provider|
+ provider.resources :locations, :name_prefix => "provider_" 
+end
+map.resources :locations
+</pre>
+
+"Idea for this is outlined here":http://weblog.jamisbuck.org/2007/2/5/nesting-resources
+
+In this case, Location has Provider as its logical parent. However, both of these URLs are acceptable for accessing locations:
+
+/locations (all locations) AND /providers/1/locations (locations scoped down to a particular provider).
+
+Formerly, restful_acl would break in this instance, now, it does not - if a logical parent cannot be determined from the URL, it returns nil as the parent. You will need to check for parent == nil in your authentication methods, in your models.
+
+h4. Added Ability to Specify Class in View Helpers
+
+In restful_acl, you can check for indexable and createable in your views, eg.:
+
+<pre>= link_to "Users", if indexable</pre>
+
+If you are in a view that corresponds with the users controller, this works fine. However, what if you wish to display a link to users somewhere else?
+
+This change allows you to optionally specify the class you are concerned with:
+
+<pre>= link_to "Users", if indexable(User)</pre>
+
 h3. What it does
 
 RESTful_ACL is a simple Access Control Layer for Ruby on Rails. It restricts access on a fine-grained level to any RESTful MVC stack. Every application is different and everyone likes to setup their User / Account / Role resources differently; this plugin will allow you to do your thing and keep that thing locked down.
