@@ -50,10 +50,10 @@ RESTful_ACL requires the super amazing "RESTful_Authentication":https://github.c
 h3. How to Install
 
 Install the RESTful_ACL gem:
-<pre>sudo gem install mdarby-restful_acl -s http://gems.github.com</pre>
+<pre>sudo gem install adriand-restful_acl -s http://gems.github.com</pre>
 
 Add the gem to your environment.rb file as thus:
-<pre>config.gem "mdarby-restful_acl", :lib => 'restful_acl_controller'</pre>
+<pre>config.gem "adriand-restful_acl", :lib => 'restful_acl_controller'</pre>
 
 RESTful_ACL requires two named routes: "error" and "denied". Add the following to your routes.rb file:
 <pre>
