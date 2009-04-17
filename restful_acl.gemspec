@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name     = "adriand-restful_acl"
+  s.name     = "restful_acl"
   s.version  = "2.0.7"
   s.date     = "2009-04-16"
   s.summary  = "Object-level access control"
